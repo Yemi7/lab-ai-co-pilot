@@ -62,8 +62,8 @@ Perform **3 challenges** with each AI. You must use the **same prompt** for all 
 > “Explain this JavaScript function in detail. Add comments as needed.”
 
 ```js
-function mysteryOp(arr) {
-  return arr.reduce((acc, val) => acc ^ val, 0);
+function mysteryOp(arr) {//
+  return arr.reduce((acc, val) => acc ^ val, 0); //this function finds a non duplicated number in an array using XOR;
 }
 ```
 
@@ -73,7 +73,35 @@ function mysteryOp(arr) {
 
 **Prompt:**  
 > “Write a function that changes the text of an HTML element with id `status` when a button is clicked. Use vanilla JavaScript and follow accessibility best practices.”
+```js
+function initStatusToggle() {
+  const statusEl = document.getElementById('status');
+  const button   = document.getElementById('toggle-btn');
 
+  if (!statusEl || !button) {
+    console.warn('initStatusToggle: required elements not found.');
+    return;
+  }
+
+  let isActive = false;
+
+  button.addEventListener('click', () => {
+    isActive = !isActive;
+
+    // Update visible status text
+    statusEl.textContent = isActive ? 'Active' : 'Inactive';
+
+    // Keep button label in sync with current state
+    button.textContent = isActive ? 'Deactivate' : 'Activate';
+
+    // Reflect toggle state for assistive technologies
+    button.setAttribute('aria-pressed', String(isActive));
+  });
+}
+
+// Run after the DOM is ready
+document.addEventListener('DOMContentLoaded', initStatusToggle);
+```
 <br />
 
 ### :white_check_mark: Task 3: Refactor Obfuscated Code
@@ -82,7 +110,13 @@ function mysteryOp(arr) {
 > “Refactor this function to make it readable and efficient. Add meaningful variable names and comments.”
 
 ```js
-function r(a){let b=0;for(let i=0;i<a.length;i++){if(a[i]%2===0){b+=a[i]}}return b}
+// Before — imperative, noisy
+function sumEvenNumbers(numbers) {
+  return numbers.reduce((sum, current) => {
+    const isEven = current % 2 === 0;
+    return isEven ? sum + current : sum;
+  }, 0);
+}
 ```
 
 <br />
@@ -91,92 +125,47 @@ function r(a){let b=0;for(let i=0;i<a.length;i++){if(a[i]%2===0){b+=a[i]}}return
 
 | AI Tool     | Task | Clarity (1–5) | Accuracy (1–5) | Speed (1–5) | Tone (1–5) | Notes |
 |-------------|------|----------------|----------------|--------------|-------------|-------|
-| ChatGPT     | 1    |                |                |              |             |       |
-| ChatGPT     | 2    |                |                |              |             |       |
-| ChatGPT     | 3    |                |                |              |             |       |
-| Claude      | 1    |                |                |              |             |       |
-| Claude      | 2    |                |                |              |             |       |
-| Claude      | 3    |                |                |              |             |       |
-| Your Pick   | 1    |                |                |              |             |       |
-| Your Pick   | 2    |                |                |              |             |       |
-| Your Pick   | 3    |                |                |              |             |       |
+| ChatGPT     | 1    |        3       |        5       |      5       |      2      |       |
+| ChatGPT     | 2    |        3       |        5       |      5       |      4      |       |
+| ChatGPT     | 3    |        5       |        5       |      5       |      4      |       |
+| Claude      | 1    |        5       |        5       |      3       |      5      |       |
+| Claude      | 2    |        3       |        5       |      3       |      2      |       |
+| Claude      | 3    |        4       |        5       |      3       |      5      |       |
+| Your Pick   | 1    |     Claude     |                |              |             |       |
+| Your Pick   | 2    |     ChatGPT    |                |              |             |       |
+| Your Pick   | 3    |     ChatGPT    |                |              |             |       |
 
-> 💡 Don’t just give scores write down what stood out.  
-> Was one clearer, but verbose? Another too short but correct?
-
-<br />
-
-## :receipt: Your Recommendation Report
-
-Create a Markdown report in your project folder with the following sections:
 
 ### AI_Assistant_Report.md
 
 # AI Assistant Trials – Final Report
 
 ## :trophy: My Pick:
-[Name of AI]
+Claude
 
 ## :white_check_mark: Pros & Cons
 
 ### ChatGPT
-- :white_check_mark: [Insert good things]
-- :x: [Insert limitations]
+- :white_check_mark: ChatGPT is much faster, and it's results relatively easier to understand.
+- :x: Sometimes it's answers are spread out very far and it makes it harder to interpret
 
 ### Claude
-- :white_check_mark:
-- :x:
+- :white_check_mark: Claude has a much nicer user interface, and the style of it generating an answer
+is nicer.
+- :x: Claude is relatively slower than ChatGPT
 
 ### [Your Pick]
-- :white_check_mark:
-- :x:
+- :white_check_mark: ChatGPT
 
 ## :pushpin: Task-by-Task Highlights
-- Task 1: [Summary of performance]
-- Task 2: ...
-- Task 3: ...
-
+- Task 1: Claude was easier to understand and gave better examples
+- Task 2: ChatGPT included the possible html file while Claude didn't
+- Task 3: ChatGPT recommened a less factored way to solve it which could be easier to understand, both renamed the variables. ChatGPT stuck to the for loop where Claude changed it to forEach.
 ## :mag: Surprises & Bugs
-- [Mention hallucinations, bugs, or bad suggestions]
+- No halluciantions.
 
 ## Final Thoughts
 Which AI would you trust in a real project? Why?
-
+Though both are good, I'd choose Claude. Though ChatGpt is faster, it isn't like Claude is slow, and it is much nicer to use. And both of them give good clarity over answers. So over an extended project I'd prefer Claude.
 <br />
 
-##  Reflection Prompts
-
-Write in your journal or digital notebook:
-
-- Which AI helped *you* learn better?
-- Was there a big difference in explanation quality?
-- Which one matched your communication style?
-- How might you use different AIs for different types of work?
-
-<br />
-
-## :microscope: Bonus Round
-
-Ask all three:
-
-> “What are 3 common mistakes junior developers make in DOM manipulation, and how can they be avoided?”
-
-Who gave the clearest, most useful guidance?
-
-<br />
-
-## :white_check_mark: Submission Checklist
-
-- [ ] Filled-out evaluation table  
-- [ ] AI_Assistant_Report.md with a clear winner  
-- [ ] Reflections written  
-
-<br />
-
-## :dart: You’re the AI Captain Now
-
-Well done, dev! You’ve tested, documented, and decided.
-
-> Remember: These tools are powerful but **you** are the architect of your process.
-
-Choose wisely. :man_technologist: :woman_technologist:
